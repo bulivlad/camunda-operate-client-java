@@ -2,6 +2,7 @@ package io.camunda.operate;
 
 import java.util.Map;
 
+import io.camunda.operate.beta.CamundaOperateBetaClient;
 import io.camunda.operate.dto.FlownodeInstance;
 import io.camunda.operate.dto.Incident;
 import io.camunda.operate.dto.ProcessDefinition;

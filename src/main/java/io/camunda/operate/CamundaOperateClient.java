@@ -207,12 +207,28 @@ public class CamundaOperateClient {
     }
   }
 
+  public CamundaOperateClient() {
+  }
+
+  public CamundaOperateClient(Builder<?> builder) {
+    operateUrl = builder.operateUrl;
+    authentication = builder.authentication;
+  }
+
   public String getOperateUrl() {
     return operateUrl;
   }
 
   public void setOperateUrl(String operateUrl) {
     this.operateUrl = operateUrl;
+  }
+
+  protected AuthInterface getAuthentication() {
+    return authentication;
+  }
+
+  protected void setAuthentication(AuthInterface authentication) {
+    this.authentication = authentication;
   }
 
   public Header getAuthHeader() {
@@ -233,40 +249,28 @@ public class CamundaOperateClient {
     }
   }
 
-  public static class Builder {
+  public static class Builder<T extends Builder<T>> {
 
     private AuthInterface authentication;
 
     private String operateUrl;
 
-    private boolean beta;
-
     public Builder() {
 
     }
 
-    public Builder beta() {
-      beta = true;
-      return this;
-    }
-
-    public Builder authentication(AuthInterface authentication) {
+    public T authentication(AuthInterface authentication) {
       this.authentication = authentication;
-      return this;
+      return (T) this;
     }
 
-    public Builder operateUrl(String operateUrl) {
+    public T operateUrl(String operateUrl) {
       this.operateUrl = formatUrl(operateUrl);
-      return this;
+      return (T) this;
     }
 
     public CamundaOperateClient build() throws OperateException {
-      CamundaOperateClient client;
-      if (beta) {
-        client = new CamundaOperateBetaClient();
-      } else {
-        client = new CamundaOperateClient();
-      }
+      CamundaOperateClient client = new CamundaOperateClient();
       client.authentication = authentication;
       client.operateUrl = operateUrl;
       authentication.authenticate(client);

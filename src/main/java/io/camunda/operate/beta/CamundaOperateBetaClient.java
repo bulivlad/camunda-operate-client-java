@@ -99,4 +99,14 @@ public class CamundaOperateBetaClient extends CamundaOperateClient {
         }
         return auditTrail;
     }
+
+    protected CamundaOperateBetaClient(Builder builder) {
+        super(builder);
+    }
+
+    public static class Builder extends CamundaOperateClient.Builder<Builder> {
+        public CamundaOperateBetaClient build() {
+            return new CamundaOperateBetaClient(this);
+        }
+    }
 }
